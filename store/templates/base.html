@@ -16,6 +16,7 @@
     <link href="{% static 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css' %}" rel="stylesheet" />
     <link href="{% static 'css/tiny-slider.css' %}" rel="stylesheet" />
     <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/alert.css' %}" rel="stylesheet" />
     <!-- FontAwesome-->
     <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
     <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css" />
@@ -23,14 +24,184 @@
     <title>Furni | Online furniture sale</title>
   </head>
   <style>
+    @keyframes shake {
+      0% {
+        transform: translateX(-10px);
+      }
+      25% {
+        transform: translateX(10px);
+      }
+      50% {
+        transform: translateX(-10px);
+      }
+      75% {
+        transform: translateX(10px);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    .alert {
+      right: 10px;
+      position: absolute;
+      animation: shake 0.5s ease-in-out;
+      background-color: #d9eee1;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    .close {
+      border: none;
+      background-color: transparent;
+    }
+    .close:hover {
+      background-color: #3d5b50;
+    }
+    .dropdown-menu > li > a {
+      text-decoration: none;
+    }
+    .dropdown-menu > li > a:hover {
+      color: #3d5b50;
+      font-weight: bold;
+    }
+    .dropdown-menu {
+      border: 2px solid #3d5b50;
+    }
+    .wdp-ribbon {
+      color: #fff;
+      display: inline-block;
+      padding: 2px 15px;
+      position: absolute;
+      right: 0px;
+      top: 20px;
+      line-height: 24px;
+      height: 24px;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: baseline;
+      border-radius: 0.25em;
+      border-radius: 0;
+      text-shadow: none;
+      font-weight: normal;
+      background-color: #3d5b50 !important;
+    }
+
+    .wdp-ribbon-two:before,
+    .wdp-ribbon-two:before {
+      display: inline-block;
+      content: "";
+      position: absolute;
+      left: -14px;
+      top: 0;
+      border: 9px solid transparent;
+      border-width: 14px 8px;
+      border-right-color: #3d5b50;
+    }
+    .wdp-ribbon-two:before {
+      border-color: #3d5b50;
+      border-left-color: transparent !important;
+      left: -9px;
+    }
+
+    .product-link {
+      text-decoration: none;
+    }
     .custom-navbar {
       position: -webkit-sticky;
       position: sticky;
       top: 0;
       z-index: 1000;
     }
+    .page-number {
+      display: inline-block;
+      padding: 8px 16px; /* Điều chỉnh kích thước theo nhu cầu */
+      margin: 4px;
+      background-color: #f1f1f1;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .page-number:hover {
+      background-color: #3d5b50;
+      color: #fff;
+    }
+
+    .page-number.active {
+      background-color: #007bff;
+      color: white;
+    }
+    .page-control {
+      display: inline-block;
+      padding: 8px 16px;
+      margin: 4px;
+      background-color: #f1f1f1;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .page-control:hover {
+      background-color: #3d5b50;
+    }
+
+    .page-control.disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+    .login-register-form {
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .login-register-form h2 {
+      margin-bottom: 20px;
+    }
   </style>
   <body>
+    <!-- Start Header/Navigation -->
+    {% if user.is_authenticated %}
+    <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+      <div class="container">
+        <a class="navbar-brand" href="/">Furni<span>.</span></a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsFurni">
+          <ul class="custom-navbar-nav navbar-nav nav-text ms-auto mb-2 mb-md-0">
+            <li data-link="/" class="nav-item active">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li data-link="/shop"><a class="nav-link" href="/shop">Shop</a></li>
+            <li data-link="/about"><a class="nav-link" href="/about">About us</a></li>
+            <li data-link="/services"><a class="nav-link" href="/services">Services</a></li>
+            <li data-link="/blog"><a class="nav-link" href="/blog">Blog</a></li>
+            <li data-link="/contact"><a class="nav-link" href="/contact">Contact us</a></li>
+          </ul>
+
+          <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+            <li class="nav-item dropdown">
+              <a class="nav-link nav-link dropdown-toggle" id="navbarDropdownMenuLink" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="{% static 'images/user.svg' %}" />
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li class="dropdown-item"><a href="">Profile</a></li>
+                <li class="dropdown-item"><a href="">Change password</a></li>
+                <li class="dropdown-item"><a href="{% url 'logout' %}">Logout</a></li>
+              </ul>
+            </li>
+            <li>
+              <a class="nav-link" href="/cart"><img src="{% static 'images/cart.svg' %}" /></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    {% else %}
     <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
       <div class="container">
         <a class="navbar-brand" href="/">Furni<span>.</span></a>
@@ -53,7 +224,7 @@
 
           <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
             <li>
-              <a class="nav-link" href="#"><img src="{% static 'images/user.svg' %}" /></a>
+              <a class="nav-link" href="/login"><img src="{% static 'images/user.svg' %}" /></a>
             </li>
             <li>
               <a class="nav-link" href="/cart"><img src="{% static 'images/cart.svg' %}" /></a>
@@ -62,7 +233,15 @@
         </div>
       </div>
     </nav>
-    {% block content %} {% endblock %}
+    <!-- End Header/Navigation -->
+    {% endif %} {% if messages %} {% for message in messages %}
+    <div id="autoCloseAlert" class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>Success!</strong> <span>{{message}}</span>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %} {% endif %} {% block content %} {% endblock %}
+
+    <!-- footer -->
     <footer class="footer-section">
       <div class="container relative">
         <div class="sofa-img">
@@ -166,8 +345,7 @@
                 <script>
                   document.write(new Date().getFullYear());
                 </script>
-                . All Rights Reserved. &mdash; Designed with love by <a href="https://untree.co">Untree.co</a> Distributed By <a hreff="https://themewagon.com">ThemeWagon</a>
-                <!-- License information: https://untree.co/license/ -->
+                . All Rights Reserved. &mdash; Designed with love by <a href="https://github.com/Chien100503">GauDev</a>
               </p>
             </div>
 

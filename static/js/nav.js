@@ -10,37 +10,47 @@ navItemActive.classList.add("active");
 // JavaScript function to scroll to the top of the page
 document.addEventListener("DOMContentLoaded", function () {
   var products = document.querySelectorAll(".product-item");
-  var loadMoreButton = document.getElementById("load-more");
-  var displayLimit = 8;
-  var currentIndex = 0;
+  var productItems = Array.from(products);
+  var itemsPerPage = 12;
+  var totalPages = Math.ceil(productItems.length / itemsPerPage);
+  var currentPage = 1;
 
-  function showNextProducts() {
-    for (var i = currentIndex; i < currentIndex + displayLimit; i++) {
-      if (products[i]) {
-        products[i].style.display = "block";
+  function showPage(page) {
+    var start = (page - 1) * itemsPerPage;
+    var end = start + itemsPerPage;
+    productItems.forEach(function (item, index) {
+      if (index >= start && index < end) {
+        item.style.display = "block";
+      } else {
+        item.style.display = "none";
       }
-    }
-    currentIndex += displayLimit;
+    });
+  }
 
-    // Hide load more button if all products are displayed
-    if (currentIndex >= products.length) {
-      loadMoreButton.style.display = "none";
+  function createPagination() {
+    var pagination = document.getElementById("pagination");
+    for (var i = 1; i <= totalPages; i++) {
+      var pageNumber = document.createElement("span");
+      pageNumber.textContent = i;
+      pageNumber.className = "page-number";
+      pageNumber.dataset.page = i;
+      pageNumber.addEventListener("click", function () {
+        var page = parseInt(this.dataset.page);
+        currentPage = page;
+        showPage(page);
+      });
+      pagination.appendChild(pageNumber);
     }
   }
 
   function init() {
-    // Hide all products initially
-    for (var i = 0; i < products.length; i++) {
-      if (i >= displayLimit) {
-        products[i].style.display = "none";
-      }
-    }
-
-    // Show next products when load more button is clicked
-    loadMoreButton.addEventListener("click", function () {
-      showNextProducts();
-    });
+    showPage(currentPage);
+    createPagination();
   }
 
   init();
 });
+setTimeout(function () {
+  var alert = document.getElementById("autoCloseAlert");
+  alert.classList.remove("show");
+}, 3000);
