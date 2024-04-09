@@ -9,7 +9,7 @@ urlpatterns = [
     path('blog/', views.blog, name="blog"),
     path('contact/', views.contact, name="contact"),
     path('cart/', views.cart, name="cart"),
-    path('detail/', views.detail, name="detail"),
+    path('detail/<int:pk>', views.detail, name="detail"),
     
     # Authenticator
     path('login/', views.login_user, name="login"),

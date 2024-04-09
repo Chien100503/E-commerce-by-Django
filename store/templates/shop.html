@@ -30,11 +30,11 @@
         <!-- Start Column 1 -->
         {% for product in products %} {% if product.is_sale %}
         <div class="col-12 col-md-4 col-lg-3 mb-5 product-item">
-          <span class="wdp-ribbon wdp-ribbon-two">Sale</span>
-          <a class="product-link" href="/detail/">
+          <a class="product-link" href="{% url 'detail' product.id %}">
+            <span class="wdp-ribbon wdp-ribbon-two">Sale</span>
             <img src="{{ product.image.url }}" class="img-fluid product-thumbnail" />
             <h3 class="product-title">{{ product.name }}</h3>
-            {% comment %} <strong class="product-price">${{product.sale_price}}</strong>&nbsp; {% endcomment %} <strike class="product-price">${{product.price}}</strike> <br />
+            <strike class="product-price">${{product.price}}</strike> <br />
             <strong class="product-price">${{product.sale_price}}</strong>
             <span class="icon-cross">
               <img src="{% static 'images/cross.svg' %}" class="img-fluid" />
@@ -43,9 +43,9 @@
         </div>
         {% else %}
         <div class="col-12 col-md-4 col-lg-3 mb-5 product-item">
-          <a class="product-link" href="/detail/">
+          <a class="product-link" href="{% url 'detail' product.id %}">
             <img src="{{ product.image.url }}" class="img-fluid product-thumbnail" />
-            <h3 class="product-title">${{ product.name }}</h3>
+            <h3 class="product-title">{{ product.name }}</h3>
             <strong class="product-price">${{product.price}}</strong>
             <span class="icon-cross">
               <img src="{% static 'images/cross.svg' %}" class="img-fluid" />

@@ -27,9 +27,9 @@ def cart(request):
     return render(request, 'cart.html')
 def checkout(request):   
     return render(request, 'checkout.html')
-def detail(request): 
-    products = Product.objects.all()
-    return render(request, 'detail.html', {'products': products})
+def detail(request, pk): 
+    product = Product.objects.get(id = pk)
+    return render(request, 'detail.html', {'product': product})
 
 # Authenticator
 def register_user(req):

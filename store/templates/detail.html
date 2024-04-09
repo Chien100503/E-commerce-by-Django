@@ -1,15 +1,30 @@
-{% extends "base.html" %} {% load static %} {% block content %}
+{% extends "base.html" %} {% load static %} {% block content %} {% if product.is_sale %}
 <div class="container mt-5">
   <div class="row">
     <div class="col-lg-6">
       <img src="{{ product.image.url }}" alt="Product Image" class="img-fluid" />
     </div>
     <div class="col-lg-6">
-      <h2>{{ product.name.id }}</h2>
-      <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      <p>Price: ${{ product.price.id }}</p>
+      <h2>{{ product.name }}</h2>
+      <p>{{ product.description }}</p>
+      <p>Price: $<strike>{{ product.price }}</strike></p>
+      <p>Sale: ${{ product.sale_price }}</p>
       <button class="btn btn-primary">Add to Cart</button>
     </div>
   </div>
 </div>
-{% endblock content %}
+{% else %}
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-lg-6">
+      <img src="{{ product.image.url }}" alt="Product Image" class="img-fluid" />
+    </div>
+    <div class="col-lg-6">
+      <h2>{{ product.name }}</h2>
+      <p>{{ product.description }}</p>
+      <p>Price: ${{ product.price }}</p>
+      <button class="btn btn-primary">Add to Cart</button>
+    </div>
+  </div>
+</div>
+{% endif %} {% endblock content %}
