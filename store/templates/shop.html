@@ -24,6 +24,18 @@
     </div>
   </div>
   <!-- End Hero Section -->
+  <br />
+  <div class="row">
+    <div class="d-flex">
+      <a href="{% url 'shop' %}" class="col-auto mx-2"><button class="btn btn-primary" data-filter="bed">All products</button></a>
+      <a href="{% url 'category' 'Bed' %}" class="col-auto mx-2"><button class="btn btn-primary" data-filter="bed">Bed</button></a>
+      <a href="{% url 'category' 'Wardrobe' %}" class="col-auto mx-2"><button class="btn btn-primary" data-filter="wardrobe">Wardrobe</button></a>
+      <a href="{% url 'category' 'Table' %}" class="col-auto mx-2"><button class="btn btn-primary" data-filter="table">Table</button></a>
+      <a href="{% url 'category' 'Chair' %}" class="col-auto mx-2"><button class="btn btn-primary" data-filter="chair">Chair</button></a>
+      <a href="{% url 'category' 'Sofa' %}" class="col-auto mx-2"><button class="btn btn-primary" data-filter="sofa">Sofa</button></a>
+    </div>
+  </div>
+  <hr />
   <div class="untree_co-section product-section before-footer-section">
     <div class="container">
       <div class="row" id="product-list">

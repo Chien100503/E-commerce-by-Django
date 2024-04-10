@@ -10,6 +10,7 @@ urlpatterns = [
     path('contact/', views.contact, name="contact"),
     path('cart/', views.cart, name="cart"),
     path('detail/<int:pk>', views.detail, name="detail"),
+    path('category/<str:foo>/', views.category, name="category"),
     
     # Authenticator
     path('login/', views.login_user, name="login"),
