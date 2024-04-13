@@ -58,9 +58,8 @@ def register_user(req):
             return redirect('login')
         else: 
             messages.success(req, "Have problem, please try again!")
-            return redirect('login')
+            return redirect('register')
     return render(req, "register.html", {'form': form})
-
 
 def login_user(request):
     if request.method == 'POST':

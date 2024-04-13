@@ -21,6 +21,8 @@
     <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
     <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css" />
 
+    <!--Jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <title>Furni | Online furniture sale</title>
   </head>
   <style>
@@ -44,11 +46,18 @@
     hr {
       border: 5px solid #3d5b50;
     }
+    .cart-count {
+      background-color: white;
+      border: 1px solid red;
+      color: green;
+      padding: 2px 5px;
+      border-radius: 50%;
+      font-weight: bold;
+    }
     .alert {
       right: 10px;
       position: absolute;
       animation: shake 0.5s ease-in-out;
-      background-color: #d9eee1;
     }
     html {
       scroll-behavior: smooth;
@@ -198,7 +207,11 @@
               </ul>
             </li>
             <li>
-              <a class="nav-link" href="/cart"><img src="{% static 'images/cart.svg' %}" /></a>
+              <a class="nav-link" href="/cart">
+                <img src="{% static 'images/cart.svg' %}" />
+                <span id="cartItemCount" class="cart-count">0</span>
+                <!-- Đây là phần hiển thị số lượng -->
+              </a>
             </li>
           </ul>
         </div>
@@ -238,7 +251,7 @@
     </nav>
     <!-- End Header/Navigation -->
     {% endif %} {% if messages %} {% for message in messages %}
-    <div id="autoCloseAlert" class="alert alert-warning alert-dismissible fade show" role="alert">
+    <div id="autoCloseAlert" class="alert alert-success alert-dismissible fade show" role="alert">
       <strong>Success!</strong> <span>{{message}}</span>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>

@@ -6,7 +6,8 @@
         <div class="card-body">
           <h4 class="text-center">Register</h4>
           <form method="POST" action="{% url 'register' %}">
-            {% csrf_token %} {{form.as_p}}
+            {% csrf_token %} 
+            {{form.as_p}}
             <span>you already have an account? </span> <a href="/login/">Login</a>
             <br />
             <div class="text-center mt-2"><button type="submit" class="btn btn-primary">Register</button><br /></div>
